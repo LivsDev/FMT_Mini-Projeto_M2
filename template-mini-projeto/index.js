@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Adiciona evento de clique ao botão "Adicionar"
     document.querySelector('.button-add').addEventListener('click', adicionarInteresse);
 
-    // Adiciona evento de clique ao botão "Limpar lista"
+    // Adiciona evento de clique ao botão "LIMPAR LISTA"
     document.querySelector('.button-clear').addEventListener('click', limparLista);
 
      // Atualiza a lista de interesses a cada 1 segundo (1000 milissegundos)
