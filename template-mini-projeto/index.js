@@ -1,3 +1,5 @@
+document.addEventListener('DOMContentLoaded', () => {
+
 // Função para carregar os interesses do localStorage
 function carregarInteresses() {
     const listaInteresses = document.getElementById('interest-list');
@@ -41,5 +43,13 @@ function limparLista() {
     carregarInteresses();
 }
 
-// Carrega a lista de interesses quando a página é carregada
-document.addEventListener('DOMContentLoaded', carregarInteresses);
+   // Adiciona evento de clique ao botão "Adicionar"
+   document.querySelector('.button-add').addEventListener('click', adicionarInteresse);
+
+   // Adiciona evento de clique ao botão "Limpar lista"
+   document.querySelector('.button-clear').addEventListener('click', limparLista);
+
+   // Carrega a lista de interesses quando a página é carregada
+   carregarInteresses();
+
+});
