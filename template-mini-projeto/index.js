@@ -55,6 +55,27 @@ document.addEventListener('DOMContentLoaded', () => {
      // Atualiza a lista de interesses a cada 1 segundo (1000 milissegundos)
      setInterval(carregarInteresses, 1000);
 
+         // Função para carregar a notícia do IBGE
+    function carregarNoticiaIBGE() {
+        const url = 'https://servicodados.ibge.gov.br/api/v3/noticias/?tipo=release';
+
+        fetch(url)
+            .then(response => response.json()) // Converte a resposta para JSON
+            .then(data => {
+                if (data.items && data.items.length > 0) {
+                    const primeiraNoticia = data.items[0]; // Obtém o primeiro item da lista
+                    const tituloNoticia = primeiraNoticia.titulo; // Obtém o título da notícia
+                    document.querySelector('.title-news-today').textContent = tituloNoticia; // Exibe o título da notícia na página
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao carregar a notícia do IBGE:', error); // Trata erros na requisição
+            });
+    }
+
+      // Carrega a notícia do IBGE quando a página é carregada
+      carregarNoticiaIBGE();
+
     // Carrega a lista de interesses quando a página é carregada
     carregarInteresses();
 });
