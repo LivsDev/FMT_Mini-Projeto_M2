@@ -1,55 +1,60 @@
+// Adiciona um evento que será disparado quando o conteúdo da página for carregado
 document.addEventListener('DOMContentLoaded', () => {
 
-// Função para carregar os interesses do localStorage
-function carregarInteresses() {
-    const listaInteresses = document.getElementById('interest-list');
-    listaInteresses.innerHTML = ''; // Limpa a lista de interesses
+    // Função para carregar os interesses do localStorage
+    function carregarInteresses() {
+        const listaInteresses = document.getElementById('interest-list');
+        listaInteresses.innerHTML = ''; // Limpa a lista de interesses
 
-    // Recupera os interesses do localStorage
-    const interesses = JSON.parse(localStorage.getItem('meus-interesses')) || [];
-
-    // Adiciona cada interesse à lista
-    interesses.forEach(interesse => {
-        const itemLista = document.createElement('li');
-        itemLista.textContent = interesse;
-        listaInteresses.appendChild(itemLista);
-    });
-}
-
-// Função para adicionar um interesse
-function adicionarInteresse() {
-    const inputInteresse = document.getElementById('interest-input');
-    const interesse = inputInteresse.value.trim();
-
-    if (interesse) {
-        // Recupera os interesses do localStorage
+        // Recupera os interesses armazenados no localStorage
+        // Se não houver interesses armazenados, inicializa com um array vazio
         const interesses = JSON.parse(localStorage.getItem('meus-interesses')) || [];
-        interesses.push(interesse);
 
-        // Salva os interesses de volta no localStorage
-        localStorage.setItem('meus-interesses', JSON.stringify(interesses));
-
-        // Limpa o campo de entrada
-        inputInteresse.value = '';
-
-        // Carrega a lista de interesses novamente
-        carregarInteresses();
+        // Adiciona cada interesse à lista
+        interesses.forEach(interesse => {
+            const itemLista = document.createElement('li');
+            itemLista.textContent = interesse;
+            listaInteresses.appendChild(itemLista);
+        });
     }
-}
 
-// Função para limpar a lista de interesses
-function limparLista() {
-    localStorage.removeItem('meus-interesses');
+    // Função para adicionar um interesse
+    function adicionarInteresse() {
+        const inputInteresse = document.getElementById('interest-input'); // Obtém a referência do campo de entrada de texto
+        const interesse = inputInteresse.value.trim(); // Obtém o valor do campo de entrada e remove espaços em branco extras
+
+        // Verifica se o campo de entrada não está vazio
+        if (interesse) {
+
+            // Recupera os interesses armazenados no localStorage
+            // Se não houver interesses armazenados, inicializa com um array vazio
+            const interesses = JSON.parse(localStorage.getItem('meus-interesses')) || [];
+            interesses.push(interesse); // Adiciona o novo interesse ao array
+
+            // Armazena o array atualizado de interesses no localStorage
+            localStorage.setItem('meus-interesses', JSON.stringify(interesses));
+
+            inputInteresse.value = ''; // Limpa o campo de entrada de texto
+
+            carregarInteresses(); // Recarrega a lista de interesses para incluir o novo interesse
+        }
+    }
+
+    // Função para limpar a lista de interesses
+    function limparLista() {
+        localStorage.removeItem('meus-interesses'); // Remove os interesses armazenados no localStorage
+        carregarInteresses(); // Carrega a lista de interesses, que agora estará vazia
+    }
+
+    // Adiciona evento de clique ao botão "Adicionar"
+    document.querySelector('.button-add').addEventListener('click', adicionarInteresse);
+
+    // Adiciona evento de clique ao botão "Limpar lista"
+    document.querySelector('.button-clear').addEventListener('click', limparLista);
+
+     // Atualiza a lista de interesses a cada 1 segundo (1000 milissegundos)
+     setInterval(carregarInteresses, 1000);
+
+    // Carrega a lista de interesses quando a página é carregada
     carregarInteresses();
-}
-
-   // Adiciona evento de clique ao botão "Adicionar"
-   document.querySelector('.button-add').addEventListener('click', adicionarInteresse);
-
-   // Adiciona evento de clique ao botão "Limpar lista"
-   document.querySelector('.button-clear').addEventListener('click', limparLista);
-
-   // Carrega a lista de interesses quando a página é carregada
-   carregarInteresses();
-
 });
