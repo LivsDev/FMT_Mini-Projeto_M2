@@ -65,7 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (data.items && data.items.length > 0) {
                     const primeiraNoticia = data.items[0]; // Obtém o primeiro item da lista
                     const tituloNoticia = primeiraNoticia.titulo; // Obtém o título da notícia
-                    document.querySelector('.title-news-today').textContent = tituloNoticia; // Exibe o título da notícia na página
+                    document.querySelector('.title-news-today').textContent = tituloNoticia; 
+                    //exibe o título da notícia da página
                 }
             })
             .catch(error => {
